@@ -15,6 +15,14 @@ export const SERVER = {
     }
 }
 
+export const DATABASE = {
+    HOST: validateEnvironmentVariable(process.env.DATABASE_HOST),
+    PORT: validateEnvironmentVariable(process.env.DATABASE_PORT),
+    USER: validateEnvironmentVariable(process.env.DATABASE_USER),
+    PASSWORD: validateEnvironmentVariable(process.env.DATABASE_PASSWORD),
+    NAME: validateEnvironmentVariable(process.env.DATABASE_NAME)
+}
+
 export const CACHE = {
     HOST: validateEnvironmentVariable(process.env.CACHE_HOST),
     PORT: Number(validateEnvironmentVariable(process.env.CACHE_PORT))
