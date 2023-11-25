@@ -8,7 +8,7 @@ const router = Router();
 router.use('/api', loggingMiddleware, apiRouter);
 router.get('/', loggingMiddleware, (_request: Request, response: Response) => {
     response.status(SUCCESS.OK.CODE).send({
-        message: 'Welcome to HR system backend'
+        message: 'Welcome to Risk Assesment backend'
     })
 })
 

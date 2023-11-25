@@ -1,0 +1,1 @@
+export const SUCCESSFULL_REGISTRATION = "Congratulations, you have successfully registered into our system";

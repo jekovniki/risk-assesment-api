@@ -23,6 +23,10 @@ export const DATABASE = {
     NAME: validateEnvironmentVariable(process.env.DATABASE_NAME)
 }
 
+export const APP_CLIENT = {
+    URL: validateEnvironmentVariable(process.env.APP_HOST) + ":" + validateEnvironmentVariable(process.env.APP_PORT) + "/"
+}
+
 export const CACHE = {
     HOST: validateEnvironmentVariable(process.env.CACHE_HOST),
     PORT: Number(validateEnvironmentVariable(process.env.CACHE_PORT))

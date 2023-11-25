@@ -15,7 +15,7 @@ export interface IUserModel extends Document {
 }
 
 const userSchema: Schema = new Schema({
-    email: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     gender: {type: String, enum: ['MALE', 'FEMALE', 'OTHER'], default: 'MALE'},
     createdAt: { type: Date, default: Date.now },
@@ -27,5 +27,7 @@ const userSchema: Schema = new Schema({
     lastName: { type: String, default: null },
     companyId: { type: String, default: null },
 });
+
+userSchema.index({ email: 1 }, { unique: true });
 
 export default mongoose.model<IUserModel>('User', userSchema);
