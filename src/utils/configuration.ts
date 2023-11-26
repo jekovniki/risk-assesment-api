@@ -54,3 +54,7 @@ export const ACCESS_LEVEL = {
     COMPANY_LEADER: 5,
     ADMIN: 10
 }
+
+export const PEP_SOURCES = {
+    CACIF: validateEnvironmentVariable(process.env.URL_FOR_COMMISISON_DATA)
+}
