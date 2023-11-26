@@ -3,6 +3,7 @@ import mongoose, { Schema, Document } from 'mongoose';
 export interface IUserModel extends Document {
     email: string;
     password: string;
+    role: string;
     gender: "MALE" | "FEMALE" | "OTHER";
     createdAt: Date;
     updatedAt: Date;
@@ -17,7 +18,8 @@ export interface IUserModel extends Document {
 const userSchema: Schema = new Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    gender: {type: String, enum: ['MALE', 'FEMALE', 'OTHER'], default: 'MALE'},
+    gender: { type: String, enum: ['MALE', 'FEMALE', 'OTHER'], default: 'MALE' },
+    role: { type: String, enum: ['USER', 'COMPANY_LEADER', 'ADMIN'], default: 'USER' },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
     dateOfBirth: {type: Date, default: Date.now },

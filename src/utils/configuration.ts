@@ -39,3 +39,18 @@ export const LOG_MANAGEMENT = {
     SUBDOMAIN: validateEnvironmentVariable(process.env.LOG_MANAGEMENT_SUBDOMAIN),
     DEFAULT_TAG: validateEnvironmentVariable(process.env.LOG_MANAGEMENT_DEFAULT_TAG)
 }
+
+export const ACCESS_TOKEN = {
+    SECRET: validateEnvironmentVariable(process.env.ACCESS_TOKEN_SECRET),
+    ISSUER: validateEnvironmentVariable(process.env.ACCESS_TOKEN_ISSUER),
+    ALGORITHM: validateEnvironmentVariable(process.env.ACCESS_TOKEN_ALGORITHM),
+    LIFE: validateEnvironmentVariable(process.env.ACCESS_TOKEN_LIFE),
+    LIFE_IN_MILLISECONDS: Number(validateEnvironmentVariable(process.env.ACCESS_TOKEN_IN_MILLISECONDS))
+}
+
+export const ACCESS_LEVEL = {
+    UNAUTHORIZED: 1,
+    USER: 2,
+    COMPANY_LEADER: 5,
+    ADMIN: 10
+}

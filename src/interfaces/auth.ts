@@ -1,3 +1,4 @@
-export interface IUserData {
-
+export interface IUserAuthorizationData {
+    userId: string,
+    role: string
 }

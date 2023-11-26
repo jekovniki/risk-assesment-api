@@ -1,6 +1,6 @@
 import { atob } from "buffer";
 import { TSignIn } from "../../types/auth";
-import { hash } from "argon2";
+import { hash, verify } from "argon2";
 
 export function decodeCredentials(credentials: TSignIn): TSignIn {
     return {
@@ -11,4 +11,8 @@ export function decodeCredentials(credentials: TSignIn): TSignIn {
 
 export async function encryptPassword(password: string): Promise<string> {
     return hash(password);
+}
+
+export async function comparePassword(providedPassword: string, storedHash: string): Promise<boolean> {
+    return verify(storedHash, providedPassword);
 }
