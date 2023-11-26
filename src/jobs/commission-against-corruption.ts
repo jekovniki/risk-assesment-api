@@ -2,6 +2,38 @@ import FetchAPI from "../libraries/fetch";
 import { Category, Institution, Person, StructuredPEPData } from "../interfaces/pep/caciaf";
 import { PEP_SOURCES } from "../utils/configuration";
 import { COMMISSION_AGAINST_CORRUPTION_DATA_PER_YEAR } from "../utils/constants/pep-sources";
+import { logger } from "../utils/logger";
+import PepModel from "../models/caciaf";
+
+export async function monitorCACIAFData() {
+    try {
+        logger.info('Running monitor CACIAF data job...');
+
+        const fetchedPEPList = await getAllTimePEPListFromCommissionAgainstCorruption();
+        const savedPEPData = await PepModel.find();
+        if (!savedPEPData || savedPEPData.length === 0) {
+            await PepModel.insertMany(fetchedPEPList);
+            logger.info('There were no records for CACIAF data in the database. So they were saved');
+            return;
+        }
+
+        fetchedPEPList.forEach(async (fetchedPEP) => {
+            const savedPEP = savedPEPData.find(saved => saved.name === fetchedPEP.name);
+
+            if (!savedPEP) {
+                // If the document doesn't exist, create a new one
+                await PepModel.create(fetchedPEP);
+            } else {
+                // If the document exists, update its history
+                savedPEP.history = fetchedPEP.history;
+                await savedPEP.save();
+            }
+        });
+        
+    } catch (error) {
+        logger.error('Error in daily job: ' + JSON.stringify(error));
+    }
+}
 
 export async function getAllTimePEPListFromCommissionAgainstCorruption(): Promise<StructuredPEPData[]> {
     const pepListPerYear: Array<Person[]> = [];
