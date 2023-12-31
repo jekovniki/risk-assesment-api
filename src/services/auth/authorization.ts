@@ -6,6 +6,7 @@ import { CACHE_SESSION_PREPOSITION } from "../../utils/constants/cache-keys";
 import SessionModel from "../../models/session";
 import { IUserAuthorizationData } from "../../interfaces/auth";
 import { IErrorResponse } from "../../interfaces/base";
+import { ACCESS_LEVEL } from "../../utils/configuration";
 
 export async function getUserSession(data: IUserAuthorizationData): Promise<{token: string, sessionId: string} | IErrorResponse> {
     try {
@@ -70,8 +71,10 @@ export async function validateUserSession(tokenData: Record<string, any>, method
     if (sessionData === null) {
         throw ERRORS.UNAUTHORIZED.MESSAGE;
     }
+    const role: string = sessionData.role;
+    const roleId = ACCESS_LEVEL[role as keyof typeof ACCESS_LEVEL] as number;
     const isTokenExpired = Date.now() > tokenData.exp;
-    const isUserAuthorized = sessionData.roleId >= methodLevel;
+    const isUserAuthorized = roleId >= methodLevel;
     const sessionDate = new Date(sessionData.expiration);
     const isValidSession = sessionDate.getTime() > Date.now();
 

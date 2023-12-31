@@ -2,6 +2,7 @@ import express, { Express } from "express";
 import bodyParser from "body-parser";
 import cors from 'cors';
 import helmet from 'helmet';
+import cookieParser from "cookie-parser";
 
 import { IRestServer, IServerConfiguration } from "../interfaces/infrastructure";
 import { SERVER } from "../utils/configuration";
@@ -38,6 +39,7 @@ class Server implements IRestServer {
 
     private async middleware(): Promise<void> {
         this.server.use(bodyParser.json());
+        this.server.use(cookieParser());
         this.server.use(cors({
             origin: SERVER.ORIGIN(),
             credentials: true

@@ -1,13 +1,10 @@
 import { Router } from "express";
-// import { validationMiddleware } from "../../../middlewares/validation";
-// import { signInCredentials } from "../../../types/auth";
-// import { signIn, signInTrustedDevice, signOut } from "../../../controllers/auth";
-// import { deviceDataMiddleware } from "../../../middlewares/device";
+import { getUser } from "../../../controllers/users";
+import { accessControlMiddleware } from "../../../middlewares/access";
+import { ACCESS_LEVEL } from "../../../utils/configuration";
 
 const usersRouter = Router();
 
-// authRouter.post('/sign-in', validationMiddleware(signInCredentials), deviceDataMiddleware, signIn);
-// authRouter.get('/sign-in-device', deviceDataMiddleware, signInTrustedDevice);
-// authRouter.post('/sign-out', signOut);
+usersRouter.get('/me', accessControlMiddleware(ACCESS_LEVEL.USER), getUser);
 
 export default usersRouter;

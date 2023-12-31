@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
 export default class FetchAPI {
     public static async get(url: string, configuration: AxiosRequestConfig = {}): Promise<AxiosResponse<any, any>> {
-        console.log(url);
+
         return axios.get(url, configuration);
     }
 

@@ -27,7 +27,6 @@ export async function signInWithCredentials(credentials: TSignIn): Promise<IUser
                 message: WRONG_CREDENTIALS
             }
         }
-
         return {
             success: true,
             data: user

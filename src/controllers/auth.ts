@@ -20,7 +20,7 @@ export async function signUp(request: Request, response: Response): Promise<void
         response.status(SUCCESS.OK.CODE).send({
             ...result,
             options: {
-                url: APP_CLIENT.URL + "homepage"
+                url: "https://" + APP_CLIENT.URL + "dashboard"
             }
         });
 
@@ -67,7 +67,7 @@ export async function signIn(request: Request, response: Response): Promise<void
             success: true,
             message: "Successfully signed in. Wait untill you get redirected.",
             options: {
-                url: APP_CLIENT.URL + "dashboard"
+                url: "http://" + APP_CLIENT.URL + "dashboard"
             }
         });
 

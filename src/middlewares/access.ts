@@ -16,6 +16,7 @@ export const accessControlMiddleware = (METHOD_LEVEL = ACCESS_LEVEL.UNAUTHORIZED
             const token = getToken(request);
             const tokenData = IdentityToken.validate(token);
             const expirationTime = getTimeUntilTheEndOfTheDay();
+
             if (tokenData.success === false || tokenData.exp === undefined) {
                 throw ERRORS.UNAUTHORIZED.MESSAGE;
             }
@@ -35,7 +36,7 @@ export const accessControlMiddleware = (METHOD_LEVEL = ACCESS_LEVEL.UNAUTHORIZED
             }
 
             request.body.userId = currentSessionData.userId;
-    
+            
             next();
         } catch (error) {
             response.status(ERRORS.UNAUTHORIZED.CODE).send({
