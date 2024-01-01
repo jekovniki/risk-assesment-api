@@ -1,7 +1,6 @@
 import { handleErrors } from "../utils/errors";
 import { IUserInformationResponse } from "../interfaces/user";
 import { IErrorResponse } from "../interfaces/base";
-import { TSignIn } from "../types/auth";
 import UserModel from "../models/user";
 import { USER_NOT_EXISTS } from "../utils/constants/errors";
 import { ERRORS } from "../utils/constants/http-status";
