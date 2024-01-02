@@ -73,7 +73,8 @@ export async function validateUserSession(tokenData: Record<string, any>, method
     }
     const role: string = sessionData.role;
     const roleId = ACCESS_LEVEL[role as keyof typeof ACCESS_LEVEL] as number;
-    const isTokenExpired = Date.now() > tokenData.exp;
+    const tokenExp = tokenData.exp.toString() + "000";
+    const isTokenExpired = Date.now() > Number(tokenExp);
     const isUserAuthorized = roleId >= methodLevel;
     const sessionDate = new Date(sessionData.expiration);
     const isValidSession = sessionDate.getTime() > Date.now();
