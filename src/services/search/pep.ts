@@ -5,26 +5,22 @@ import { IErrorResponse } from "../../interfaces/base";
 import PepModel from "../../models/caciaf";
 
 
-export async function getAllCACIAFPEPs(): Promise<{ success: boolean, data: StructuredPEPData[]} | IErrorResponse> {
-    try {
-        const savedData = await cache.get("pep_list");
+export async function getAllCACIAFPEPs(): Promise<{ success: boolean, data: StructuredPEPData[] } | IErrorResponse> {
+    const savedData = await cache.get("pep_list");
 
-        if (!savedData) {
-            const pepList = await PepModel.find();
+    if (!savedData) {
+        const pepList = await PepModel.find();
 
-            cache.set('pep_list', JSON.stringify(pepList));
-
-            return {
-                success: true,
-                data: pepList
-            }
-        }
+        cache.set('pep_list', JSON.stringify(pepList));
 
         return {
             success: true,
-            data: JSON.parse(savedData)
+            data: pepList
         }
-    } catch (error) {
-        return handleErrors(error);
+    }
+
+    return {
+        success: true,
+        data: JSON.parse(savedData)
     }
 }

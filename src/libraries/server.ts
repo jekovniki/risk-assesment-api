@@ -9,6 +9,7 @@ import { SERVER } from "../utils/configuration";
 
 import router from "../routes";
 import { logger } from "../utils/logger";
+import { handleErrorMiddleware } from "../middlewares/errors";
 
 
 class Server implements IRestServer {
@@ -48,6 +49,7 @@ class Server implements IRestServer {
             crossOriginResourcePolicy: SERVER.ORIGIN() === true ? false : true
         }));
         this.server.use(router);
+        this.server.use(handleErrorMiddleware);
     }
 }
 

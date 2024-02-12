@@ -18,7 +18,7 @@ async function executeDailyJobs() {
         timeUntilNextJob += 24 * 60 * 60 * 1000;
     }
     logger.info('Checking scheduled daily jobs')
-    // await monitorCACIAFData();
+    await monitorCACIAFData();
     logger.info('Daily jobs are up to date')
 
     setTimeout(async () => {
