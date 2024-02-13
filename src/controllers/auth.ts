@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { signInWithCredentials, signUpWithCredentials } from "../services/auth/authentication";
 import { ERRORS, SERVER, SUCCESS } from "../utils/constants/http-status";
 import { isObjectOfType } from "../utils/helpers/checks";
-import { IErrorResponse } from "../interfaces/base";
+import { IErrorResponse } from "../dtos/base";
 import { ACCESS_TOKEN, APP_CLIENT } from "../utils/configuration";
 import { getTimeUntilTheEndOfTheDay } from "../utils/helpers/time";
 import IdentityToken from "../services/auth/token";

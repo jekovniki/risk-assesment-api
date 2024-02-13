@@ -4,8 +4,8 @@ import { ERRORS, SERVER } from "../../utils/constants/http-status";
 import { cache } from "../../libraries/cache";
 import { CACHE_SESSION_PREPOSITION } from "../../utils/constants/cache-keys";
 import SessionModel from "../../models/session";
-import { IUserAuthorizationData } from "../../interfaces/auth";
-import { IErrorResponse } from "../../interfaces/base";
+import { IUserAuthorizationData } from "../../dtos/auth";
+import { IErrorResponse } from "../../dtos/base";
 import { ACCESS_LEVEL } from "../../utils/configuration";
 
 export async function getUserSession(data: IUserAuthorizationData): Promise<{token: string, sessionId: string} | IErrorResponse> {

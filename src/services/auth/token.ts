@@ -1,5 +1,5 @@
 import jsonwebtoken from 'jsonwebtoken';
-import { IBaseResponse } from "../../interfaces/base";
+import { IBaseResponse } from "../../dtos/base";
 import { handleErrors } from "../../utils/errors";
 import { ACCESS_TOKEN } from '../../utils/configuration';
 

@@ -1,5 +1,5 @@
 import { atob } from "buffer";
-import { TSignIn } from "../../types/auth";
+import { TSignIn } from "../../dtos/auth";
 import { hash, verify } from "argon2";
 
 export function decodeCredentials(credentials: TSignIn): TSignIn {

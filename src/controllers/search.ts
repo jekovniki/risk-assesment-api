@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { SERVER, SUCCESS } from "../utils/constants/http-status";
 import { isObjectOfType } from "../utils/helpers/checks";
-import { IErrorResponse } from "../interfaces/base";
+import { IErrorResponse } from "../dtos/base";
 import { APP_CLIENT } from "../utils/configuration";
 import { getAllCACIAFPEPs } from "../services/search/pep";
 import { cache } from "../libraries/cache";
