@@ -17,7 +17,7 @@ export async function signUp(request: Request, response: Response, next: NextFun
             return;
         }
 
-        response.status(SUCCESS.OK.CODE).send(result);
+        response.status(SUCCESS.CREATED.CODE).send(result);
 
     } catch (error) {
         return next(error);
