@@ -1,5 +1,5 @@
 import FetchAPI from "../libraries/fetch";
-import { Category, Institution, Person, StructuredPEPData } from "../interfaces/pep/caciaf";
+import { Category, Institution, Person, StructuredPEPData } from "../dtos/pep/caciaf";
 import { PEP_SOURCES } from "../utils/configuration";
 import { COMMISSION_AGAINST_CORRUPTION_DATA_PER_YEAR } from "../utils/constants/pep-sources";
 import { logger } from "../utils/logger";

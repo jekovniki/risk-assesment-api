@@ -4,7 +4,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import cookieParser from "cookie-parser";
 
-import { IRestServer, IServerConfiguration } from "../interfaces/infrastructure";
+import { IRestServer, IServerConfiguration } from "../dtos/infrastructure";
 import { SERVER } from "../utils/configuration";
 
 import router from "../routes";

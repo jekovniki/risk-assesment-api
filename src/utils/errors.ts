@@ -1,4 +1,4 @@
-import { IErrorResponse } from "../interfaces/base";
+import { IErrorResponse } from "../dtos/base";
 import { ERRORS, SERVER } from "./constants/http-status";
 import { logger } from "./logger";
 

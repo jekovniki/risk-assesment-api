@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { DATABASE } from "../utils/configuration";
-import { IDatabaseConfiguration } from "../interfaces/infrastructure";
+import { IDatabaseConfiguration } from "../dtos/infrastructure";
 import { logger } from "../utils/logger";
 
 class Database {

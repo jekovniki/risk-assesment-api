@@ -1,7 +1,6 @@
-import { handleErrors } from "../../utils/errors";
 import { cache } from "../../libraries/cache";
-import { StructuredPEPData } from "../../interfaces/pep/caciaf";
-import { IErrorResponse } from "../../interfaces/base";
+import { StructuredPEPData } from "../../dtos/pep/caciaf";
+import { IErrorResponse } from "../../dtos/base";
 import PepModel from "../../models/caciaf";
 
 

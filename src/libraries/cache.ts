@@ -1,6 +1,6 @@
 import { Redis, RedisKey} from "ioredis";
 import { CACHE } from "../utils/configuration";
-import { IBaseConfiguration, ICacheService } from "../interfaces/infrastructure";
+import { IBaseConfiguration, ICacheService } from "../dtos/infrastructure";
 
 class Cache implements ICacheService {
     protected client: Redis;

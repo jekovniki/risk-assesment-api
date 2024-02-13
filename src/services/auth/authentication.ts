@@ -1,8 +1,8 @@
 import { handleErrors } from "../../utils/errors";
 import { comparePassword, encryptPassword } from "./general";
-import { IUserDataResponse } from "../../interfaces/user";
-import { IBaseResponse, IErrorResponse } from "../../interfaces/base";
-import { TSignIn, TSignUpInput } from "../../types/auth";
+import { IUserDataResponse } from "../../dtos/user";
+import { IBaseResponse, IErrorResponse } from "../../dtos/base";
+import { TSignIn, TSignUpInput } from "../../dtos/auth";
 import UserModel from "../../models/user"; 
 import { logger } from "../../utils/logger";
 import { SUCCESSFULL_REGISTRATION } from "../../utils/constants/success";

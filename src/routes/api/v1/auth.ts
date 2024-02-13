@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { validationMiddleware } from "../../../middlewares/validation";
 import { signIn, signUp } from "../../../controllers/auth";
-import { signInCredentials, signUpData } from "../../../types/auth";
+import { signInCredentials, signUpData } from "../../../dtos/auth";
 
 const authRouter = Router();
 
