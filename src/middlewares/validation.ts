@@ -3,7 +3,7 @@ import { AnyZodObject, ZodOptional } from "zod";
 import { ERRORS } from "../utils/constants/http-status";
 import { handleErrors } from "../utils/errors";
 
-export const validationMiddleware = (schema: AnyZodObject | ZodOptional<AnyZodObject>, isQuery: boolean = false) =>
+export const validationMiddleware = (schema: any, isQuery: boolean = false) =>
   async (request: Request, response: Response, next: NextFunction) => {
     try {
       if (isQuery) {
@@ -15,8 +15,7 @@ export const validationMiddleware = (schema: AnyZodObject | ZodOptional<AnyZodOb
     } catch (error) {
       handleErrors(error);
       response.status(ERRORS.BAD_REQUEST.CODE).send({
-        success: false,
-        message: ERRORS.BAD_REQUEST.MESSAGE,
+        error: error,
       });
     }
   };
