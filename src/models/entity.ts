@@ -31,7 +31,10 @@ const entitySchema: Schema = new Schema({
         holder: { type: Array<String> },
         startDate: { type: Array<String> },
         status: { type: Array<String> },
-        post: { type: Array<String> }
+        post: { type: Array<String> },
+        relative: { type: Array<String> },
+        relationship: { type: Array<String> },
+        person: { type: Array<String> }
     },
     referents: { type: Array<String>},
     datasets: { type: Array<String> },
