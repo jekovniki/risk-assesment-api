@@ -7,25 +7,17 @@ import UserModel from "../../models/user";
 import { logger } from "../../utils/logger";
 import { SUCCESSFULL_REGISTRATION } from "../../utils/constants/success";
 import { USER_NOT_EXISTS, WRONG_CREDENTIALS } from "../../utils/constants/errors";
-import { ERRORS } from "../../utils/constants/http-status";
+import { InvalidInputError } from "../../utils/errors/index";
 
 export async function signInWithCredentials(credentials: TSignIn): Promise<IUserDataResponse | IErrorResponse>{
     try {
         const user = await UserModel.findOne({ email: credentials.email });
         if (user === null) {
-            return {
-                success: false,
-                code: ERRORS.BAD_REQUEST.CODE,
-                message: USER_NOT_EXISTS,
-            }
+            throw new InvalidInputError(USER_NOT_EXISTS);
         }
         const isCorrectPassword = await comparePassword(credentials.password, user.password);
         if (!isCorrectPassword) {
-            return {
-                success: false,
-                code: ERRORS.BAD_REQUEST.CODE,
-                message: WRONG_CREDENTIALS
-            }
+            throw new InvalidInputError(WRONG_CREDENTIALS);
         }
         return {
             success: true,
