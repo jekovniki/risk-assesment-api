@@ -1,6 +1,7 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
 export interface IUserModel extends Document {
+    googleId: string;
     email: string;
     password: string;
     role: string;
@@ -16,6 +17,7 @@ export interface IUserModel extends Document {
 }
 
 const userSchema: Schema = new Schema({
+    googleId: { type: String, unique: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     gender: { type: String, enum: ['MALE', 'FEMALE', 'OTHER'], default: 'MALE' },
