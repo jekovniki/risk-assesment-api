@@ -2,30 +2,22 @@ import { handleErrors } from "../../utils/errors";
 import { comparePassword, encryptPassword } from "./general";
 import { IUserDataResponse } from "../../dtos/user";
 import { IBaseResponse, IErrorResponse } from "../../dtos/base";
-import { TSignIn, TSignUpInput } from "../../dtos/auth";
-import UserModel from "../../models/user"; 
+import { IGoogleData, TSignIn, TSignUpInput } from "../../dtos/auth";
+import UserModel, { IUserModel } from "../../models/user"; 
 import { logger } from "../../utils/logger";
 import { SUCCESSFULL_REGISTRATION } from "../../utils/constants/success";
 import { USER_NOT_EXISTS, WRONG_CREDENTIALS } from "../../utils/constants/errors";
-import { ERRORS } from "../../utils/constants/http-status";
+import { InvalidInputError } from "../../utils/errors/index";
 
 export async function signInWithCredentials(credentials: TSignIn): Promise<IUserDataResponse | IErrorResponse>{
     try {
         const user = await UserModel.findOne({ email: credentials.email });
         if (user === null) {
-            return {
-                success: false,
-                code: ERRORS.BAD_REQUEST.CODE,
-                message: USER_NOT_EXISTS,
-            }
+            throw new InvalidInputError(USER_NOT_EXISTS);
         }
         const isCorrectPassword = await comparePassword(credentials.password, user.password);
         if (!isCorrectPassword) {
-            return {
-                success: false,
-                code: ERRORS.BAD_REQUEST.CODE,
-                message: WRONG_CREDENTIALS
-            }
+            throw new InvalidInputError(WRONG_CREDENTIALS);
         }
         return {
             success: true,
@@ -36,8 +28,28 @@ export async function signInWithCredentials(credentials: TSignIn): Promise<IUser
     }
 }
 
-export async function signInWithGoogle() {
+export async function signInWithGoogle(data: IGoogleData): Promise<IUserModel> {
+    if (data.verified_email === false) {
+        throw new InvalidInputError("Please verify your email before continuing with google sign in!");
+    }
+    const isUserRegistered = await UserModel.find({ googleId: data.id });
+    if (isUserRegistered) {
+        return isUserRegistered[0];
+    }
 
+    await UserModel.create({
+        googleId: data.id,
+        email: data.email,
+        firstName: data.given_name,
+        lastName: data.family_name
+    });
+
+    const result =  await UserModel.find({ googleId: data.id });
+    if (!result) {
+        throw new Error("User missing after creation");
+    }
+
+    return result[0];
 }
 
 export async function signUpWithCredentials(credentials: TSignUpInput): Promise<IBaseResponse | IErrorResponse> {

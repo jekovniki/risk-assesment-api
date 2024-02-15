@@ -27,3 +27,14 @@ export const signUpData = z.object({
 
 export type TSignIn = z.infer<typeof signInCredentials>;
 export type TSignUpInput = z.infer<typeof signUpData>;
+
+export interface IGoogleData {
+    id: string;
+    email: string;
+    verified_email: boolean;
+    name: string;
+    given_name: string;
+    family_name: string;
+    picture: string;
+    locale: string;
+}
