@@ -3,28 +3,24 @@ import { comparePassword, encryptPassword } from "./general";
 import { IUserDataResponse } from "../../dtos/user";
 import { IBaseResponse, IErrorResponse } from "../../dtos/base";
 import { IGoogleData, TSignIn, TSignUpInput } from "../../dtos/auth";
-import UserModel, { IUserModel } from "../../models/user"; 
+import UserModel, { IUserModel } from "../../models/user";
 import { logger } from "../../utils/logger";
 import { SUCCESSFULL_REGISTRATION } from "../../utils/constants/success";
 import { USER_NOT_EXISTS, WRONG_CREDENTIALS } from "../../utils/constants/errors";
 import { InvalidInputError } from "../../utils/errors/index";
 
-export async function signInWithCredentials(credentials: TSignIn): Promise<IUserDataResponse | IErrorResponse>{
-    try {
-        const user = await UserModel.findOne({ email: credentials.email });
-        if (user === null) {
-            throw new InvalidInputError(USER_NOT_EXISTS);
-        }
-        const isCorrectPassword = await comparePassword(credentials.password, user.password);
-        if (!isCorrectPassword) {
-            throw new InvalidInputError(WRONG_CREDENTIALS);
-        }
-        return {
-            success: true,
-            data: user
-        }
-    } catch (error) {
-        return handleErrors(error);
+export async function signInWithCredentials(credentials: TSignIn): Promise<IUserDataResponse | IErrorResponse> {
+    const user = await UserModel.findOne({ email: credentials.email });
+    if (user === null) {
+        throw new InvalidInputError(USER_NOT_EXISTS);
+    }
+    const isCorrectPassword = await comparePassword(credentials.password, user.password);
+    if (!isCorrectPassword) {
+        throw new InvalidInputError(WRONG_CREDENTIALS);
+    }
+    return {
+        success: true,
+        data: user
     }
 }
 
@@ -44,7 +40,7 @@ export async function signInWithGoogle(data: IGoogleData): Promise<IUserModel> {
         lastName: data.family_name
     });
 
-    const result =  await UserModel.find({ googleId: data.id });
+    const result = await UserModel.find({ googleId: data.id });
     if (!result) {
         throw new Error("User missing after creation");
     }

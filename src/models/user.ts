@@ -17,7 +17,7 @@ export interface IUserModel extends Document {
 }
 
 const userSchema: Schema = new Schema({
-    googleId: { type: String, unique: true },
+    googleId: { type: String, unique: true, sparse: true, default: null },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     gender: { type: String, enum: ['MALE', 'FEMALE', 'OTHER'], default: 'MALE' },
