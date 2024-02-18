@@ -57,5 +57,3 @@ jobs:
                   cp -r /var/www/html/uploads/* uploads/
                 fi
             - run: docker compose stop && docker compose up -d --build
-            - run: docker exec node-risk-assesment yarn migrate
-            - run: docker exec node-risk-assesment yarn seed
