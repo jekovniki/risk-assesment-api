@@ -28,12 +28,6 @@ services:
       - ./uploads:/app/uploads/
     ports:
       - 8002:8002
-    depends_on:
-      - node-db
-      - node-cache
-    links:
-      - node-db
-      - node-cache
 
 volumes:
   db-config:
