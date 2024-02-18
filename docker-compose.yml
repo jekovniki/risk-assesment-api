@@ -6,14 +6,14 @@ services:
     image: mongo:latest
     restart: always
     environment:
-      - MONGO_INITDB_DATABASE='${DATABASE_NAME}'
+      - MONGO_INITDB_DATABASE='risk-assesment'
     ports:
       - 27017:27017
 
   node-cache:
     image: 'redis:latest'
     ports:
-      - '${CACHE_PORT}:6379'
+      - 6379:6379
 
   node-risk-assesment:
     container_name: node-risk-assesment
