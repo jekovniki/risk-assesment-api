@@ -11,6 +11,8 @@ services:
       - 27017:27017
 
   node-cache:
+    container_name: node-cache
+    restart: always
     image: 'redis:latest'
     ports:
       - 6379:6379
