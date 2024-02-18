@@ -1,0 +1,61 @@
+name: Node.js deploy to prod
+
+on:
+    push:
+        branches: [main]
+
+jobs:
+    build:
+        runs-on: self-hosted
+
+        strategy:
+            matrix:
+                node-version: [20.x]
+                # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+        steps:
+            - run: |
+                if [-d uploads/]; then
+                  cp -r uploads/ /var/www/html/
+                fi
+            - uses: actions/checkout@v2
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v2
+              with:
+                  node-version: ${{ matrix.node-version }}
+            - run: rm -rf node_modules
+            - run: yarn install
+            - name: "Make .env file"
+              run: |
+                touch .env
+                echo REST_HOST=${{ secrets.REST_HOST }} >> .env
+                echo REST_PORT=${{ secrets.REST_PORT }} >> .env
+                echo REST_ORIGIN=${{ secrets.REST_ORIGIN }} >> .env
+                echo APP_HOST=${{ secrets.APP_HOST }} >> .env
+                echo APP_PORT=${{ secrets.APP_PORT }} >> .env
+                echo DATABASE_HOST=${{ secrets.DATABASE_HOST }} >> .env
+                echo DATABASE_NAME=${{ secrets.DATABASE_NAME }} >> .env
+                echo DATABASE_PORT=${{ secrets.DATABASE_PORT }} >> .env
+                echo DATABASE_USER=${{ secrets.DATABASE_USER }} >> .env
+                echo DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }} >> .env
+                echo CACHE_HOST=${{ secrets.CACHE_HOST }} >> .env
+                echo CACHE_PORT=${{ secrets.CACHE_PORT }} >> .env
+                echo ENVIRONMENT=${{ secrets.ENVIRONMENT }} >> .env
+                echo LOG_MANAGEMENT_TOKEN=${{ secrets.LOG_MANAGEMENT_TOKEN }} >> .env
+                echo LOG_MANAGEMENT_SUBDOMAIN=${{ secrets.LOG_MANAGEMENT_SUBDOMAIN }} >> .env
+                echo LOG_MANAGEMENT_DEFAULT_TAG=${{ secrets.LOG_MANAGEMENT_DEFAULT_TAG }} >> .env
+                echo ACCESS_TOKEN_SECRET=${{ secrets.ACCESS_TOKEN_SECRET }} >> .env
+                echo ACCESS_TOKEN_ISSUER=${{ secrets.ACCESS_TOKEN_ISSUER }} >> .env
+                echo ACCESS_TOKEN_ALGORITHM=${{ secrets.ACCESS_TOKEN_ALGORITHM }} >> .env
+                echo ACCESS_TOKEN_LIFE=${{ secrets.ACCESS_TOKEN_LIFE }} >> .env
+                echo ACCESS_TOKEN_IN_MILLISECONDS=${{ secrets.ACCESS_TOKEN_IN_MILLISECONDS }} >> .env
+                echo GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} >> .env
+                echo GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }} >> .env
+                echo GOOGLE_REDIRECT_URI=${{ secrets.GOOGLE_REDIRECT_URI }} >> .env
+            - run: |
+                if [-d /var/www/html/uploads]; then
+                  cp -r /var/www/html/uploads/* uploads/
+                fi
+            - run: docker compose stop && docker compose up -d --build
+            - run: docker exec node-risk-assesment yarn migrate
+            - run: docker exec node-risk-assesment yarn seed
