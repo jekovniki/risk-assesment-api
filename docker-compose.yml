@@ -1,14 +1,38 @@
-version: "3.3"
+version: "3.7"
+
 services:
-  mongodb:
-    image: 'mongo:latest'
-    ports:
-      - '${DATABASE_PORT}:27017'
+  node-db:
+    container_name: node-db
+    image: mongo:latest
+    restart: always
     environment:
-      # - MONGO_INITDB_ROOT_USERNAME=${DATABASE_USER}
-      # - MONGO_INITDB_ROOT_PASSWORD=${DATABASE_PASSWORD}
       - MONGO_INITDB_DATABASE='${DATABASE_NAME}'
-  redis:
+    ports:
+      - 27017:27017
+
+  node-cache:
     image: 'redis:latest'
     ports:
       - '${CACHE_PORT}:6379'
+
+  node-risk-assesment:
+    container_name: node-risk-assesment
+    restart: always
+    build:
+      context: .
+      target: dev
+    volumes:
+      - ./src:/app/src/
+      - ./uploads:/app/uploads/
+    ports:
+      - 8002:8002
+    depends_on:
+      - node-db
+      - node-cache
+    links:
+      - node-db
+      - node-cache
+
+volumes:
+  db-config:
+  db-data:
