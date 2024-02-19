@@ -50,4 +50,4 @@ class Cache implements ICacheService {
     }
 }
 
-export const cache = new Cache({ port: CACHE.PORT, host: CACHE.HOST});
+// export const cache = new Cache({ port: CACHE.PORT, host: CACHE.HOST});
