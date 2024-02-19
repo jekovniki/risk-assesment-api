@@ -32,14 +32,14 @@ class Logger {
             format: customFormat,
             level: ENVIRONMENT === 'prod' ? 'info' : 'debug'
         });
-        if (ENVIRONMENT !== 'local') {
-            this.logger.add(new Loggly({
-                token: LOG_MANAGEMENT.TOKEN,
-                subdomain: LOG_MANAGEMENT.SUBDOMAIN,
-                tags: [LOG_MANAGEMENT.DEFAULT_TAG, ENVIRONMENT],
-                json: true
-            }))
-        }
+        // if (ENVIRONMENT !== 'local') {
+        //     this.logger.add(new Loggly({
+        //         token: LOG_MANAGEMENT.TOKEN,
+        //         subdomain: LOG_MANAGEMENT.SUBDOMAIN,
+        //         tags: [LOG_MANAGEMENT.DEFAULT_TAG, ENVIRONMENT],
+        //         json: true
+        //     }))
+        // }
     }
 
     public info(message: any): void {
