@@ -9,10 +9,8 @@ export const searchRequest = z.object({
     nationality: z.string(),
     country: z.string(),
     gender: z.string(),
-    name: z.string(),
     byAlias: z.boolean(),
-    firstName: z.string(),
-    position: z.string()
+    ongoingScreening: z.boolean()
 })
 .refine(data => {
     return data.country ? COUNTRIES.some(country => country.code.toLowerCase() === data.country.toLowerCase()) : true;

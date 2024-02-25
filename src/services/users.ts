@@ -1,6 +1,7 @@
 import UserModel from "../models/user";
 import { USER_NOT_EXISTS } from "../utils/constants/errors";
 import { IUserModel } from "../models/user";
+import UserSearchModel from "../models/user-search";
 
 export async function getUserInformation(userId: string): Promise<IUserModel> {
     const user = await UserModel.findById(userId);
@@ -8,4 +9,15 @@ export async function getUserInformation(userId: string): Promise<IUserModel> {
         throw new Error(USER_NOT_EXISTS);
     }
     return user;
+}
+
+
+export async function addUserSearch(input : { search: string, userId: string, ongoingScreening: boolean}): Promise<string> {
+    const result = await UserSearchModel.create({
+        user_id: input.userId,
+        search: input.search,
+        ongoingScreening: input.ongoingScreening
+    });
+
+    return result._id; // This is case_id
 }

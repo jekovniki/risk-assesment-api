@@ -12,7 +12,8 @@ export interface IEntityModel {
         post: string[],
         relative: string[] | undefined,
         relationship: string[] | undefined,
-        person: string[] | undefined
+        person: string[] | undefined,
+        gender?: string[]
     }
     referents: string[],
     datasets: string[] | undefined,
@@ -34,7 +35,8 @@ const entitySchema: Schema = new Schema({
         post: { type: Array<String> },
         relative: { type: Array<String> },
         relationship: { type: Array<String> },
-        person: { type: Array<String> }
+        person: { type: Array<String> },
+        gender: { type: Array<String> },
     },
     referents: { type: Array<String>},
     datasets: { type: Array<String> },
