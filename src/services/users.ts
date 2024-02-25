@@ -21,3 +21,7 @@ export async function addUserSearch(input : { search: string, userId: string, on
 
     return result._id; // This is case_id
 }
+
+export async function getUserSearchHistory(userId: string) {
+    return await UserSearchModel.find({ user_id: userId });
+}
