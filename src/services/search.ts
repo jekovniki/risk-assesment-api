@@ -36,15 +36,6 @@ export function getQuery(data: TSearchRequest): Record<string, any> {
     if (data.gender) {
         query["properties.gender"] = { "$in" : [data.gender.toLowerCase()]}
     }
-    if (data.name) {
-        query["properties.name"] = { "$in" : [data.name]}
-    }
-    if (data.firstName) {
-        query["properties.firstName"] = { "$in" : [data.firstName]}
-    }
-    if (data.position) {
-        query["properties.position"] = { "$in": [data.position]}
-    }
 
     return query;
 }
