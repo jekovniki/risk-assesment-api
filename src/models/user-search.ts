@@ -16,6 +16,4 @@ const userSearchSchema: Schema = new Schema({
     updatedAt: { type: Date, default: Date.now },
 });
 
-userSearchSchema.index({ email: 1 }, { unique: true });
-
 export default mongoose.model<IUserSearchModel>('UserSearch', userSearchSchema);

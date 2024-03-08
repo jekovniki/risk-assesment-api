@@ -19,10 +19,9 @@ class Database {
     }
 
     public connect(): void {
-        const a = 1;
-        const b = 2;
-        const userString = a > b ? `${this.username}:${this.password}@` : "";
-        mongoose.connect(`mongodb://${userString}${this.host}:${this.port}/${this.database}`);
+        // mongoose.connect(`mongodb://${this.username}:${this.password}@${this.host}:${this.port}/${this.database}`);
+        mongoose.connect(`mongodb://${this.host}:${this.port}/${this.database}`);
+        // console.log(`mongodb://${this.username}:${this.password}@${this.host}:${this.port}/${this.database}`)
         logger.info(`Database is connected on: ${this.host}:${this.port}`);
     }
 

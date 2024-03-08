@@ -14,8 +14,9 @@ export async function getUser(request: Request, response: Response, next: NextFu
 
 export async function getLatestSearches(request: Request, response: Response, next: NextFunction): Promise<void> {
     try {
+        console.log(request.body);
         const result = await getUserSearchHistory(request.body.userId);
-
+        console.log('result', result);
         response.status(SUCCESS.OK.CODE).send(result);
 
     } catch (error) {
