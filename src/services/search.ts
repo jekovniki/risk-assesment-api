@@ -1,22 +1,22 @@
 import { TSearchRequest } from "../dtos/search";
-import EntityModel, { IEntityModel } from "../models/entity";
+import { IEntityModel } from "../models/entity";
 import { EntityNotFoundError } from "../utils/errors/index";
 
-export async function findPEP(data : TSearchRequest): Promise<IEntityModel[]> {
-    const query = getQuery(data);
-    const limit = data.limit ? data.limit : 20;
-    const page = data.page ? data.page : 0;
-    const skip = page * limit;
+export async function findPEP(data : TSearchRequest): Promise<any> {
+    // const query = getQuery(data);
+    // const limit = data.limit ? data.limit : 20;
+    // const page = data.page ? data.page : 0;
+    // const skip = page * limit;
 
-    const result = await EntityModel.find(query)
-    .skip(skip)
-    .limit(limit);
+    // const result = await EntityModel.find(query)
+    // .skip(skip)
+    // .limit(limit);
 
-    if (!result.length) {
-        throw new EntityNotFoundError();
-    }
+    // if (!result.length) {
+    //     throw new EntityNotFoundError();
+    // }
 
-    return result;
+    // return result;
 }
 
 export function getQuery(data: TSearchRequest): Record<string, any> {

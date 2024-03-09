@@ -1,42 +1,32 @@
 import { NextFunction, Request, Response } from 'express';
 import { ERRORS } from '../utils/constants/http-status';
 import IdentityToken from '../services/auth/token';
-import { ACCESS_LEVEL } from '../utils/configuration';
-import { validateUserSession } from '../services/auth/authorization';
-import { getTimeUntilTheEndOfTheDay } from '../utils/helpers/time';
+import { UnauthorizedError } from '../utils/errors/index';
 
-export const accessControlMiddleware = (METHOD_LEVEL = ACCESS_LEVEL.UNAUTHORIZED) => {
+/**
+ * For now I only have one role, so just a simple validation is enough
+ * 
+ * @todo : Take care of the authorization when we get more info on the app
+ */
 
+export const accessControlMiddleware = () => {
     return async (request: Request, response: Response, next: NextFunction) => {
         try {
-            if (METHOD_LEVEL === ACCESS_LEVEL.UNAUTHORIZED) {
-                next();
-                return;
-            }
             const token = getToken(request);
             const tokenData = IdentityToken.validate(token);
-            const expirationTime = getTimeUntilTheEndOfTheDay();
-
-            if (tokenData.success === false || tokenData.exp === undefined) {
-                throw ERRORS.UNAUTHORIZED.MESSAGE;
+            const isTokenExpired = new Date().getTime() > (Number(tokenData.exp + '000'));
+            const isTokenValid = new Date().getTime() > tokenData.iat;
+            if (tokenData.exp === undefined || isTokenExpired || isTokenValid === false) {
+                throw new UnauthorizedError();
             }
 
-            const currentSessionData = await validateUserSession(tokenData, METHOD_LEVEL);
+            request.body = {
+                ...request.body,
+                sessionData: {
+                    userId: tokenData.sub
+                }
+            };
 
-            if (currentSessionData.active === false) {
-                throw ERRORS.UNAUTHORIZED.MESSAGE
-            }
-            if (currentSessionData.active === true && currentSessionData.newToken !== null) {
-                response.cookie('access_token', currentSessionData.newToken, {
-                    sameSite: 'strict',
-                    expires: expirationTime,
-                    httpOnly: true,
-                    secure: false
-                });
-            }
-
-            request.body.userId = currentSessionData.userId;
-            
             next();
         } catch (error) {
             response.status(ERRORS.UNAUTHORIZED.CODE).send({

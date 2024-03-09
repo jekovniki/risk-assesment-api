@@ -4,19 +4,16 @@ import { handleErrors } from "../../utils/errors";
 import { ACCESS_TOKEN } from '../../utils/configuration';
 
 export default class IdentityToken {
-    public static generate(data: Record<string, any> = {}, expiresIn: string = ACCESS_TOKEN.LIFE): string | IBaseResponse {
-        try {
-            return jsonwebtoken.sign({
-                ...data,
-                iss: ACCESS_TOKEN.ISSUER,
-                iat: Date.now() / 1000
-            }, ACCESS_TOKEN.SECRET , { 
-                algorithm: ACCESS_TOKEN.ALGORITHM as jsonwebtoken.Algorithm,
-                expiresIn: expiresIn
-            });
-        } catch (error) {
-            return handleErrors(error);
-        }
+    public static generate(data: Record<string, any> = {}, expiresIn: string = ACCESS_TOKEN.LIFE): string {
+        return jsonwebtoken.sign({
+            ...data,
+            iss: ACCESS_TOKEN.ISSUER,
+            iat: Date.now() / 1000
+        }, ACCESS_TOKEN.SECRET, {
+            algorithm: ACCESS_TOKEN.ALGORITHM as jsonwebtoken.Algorithm,
+            expiresIn: expiresIn
+        });
+
     }
 
     public static validate(token: string): Record<string, any> {

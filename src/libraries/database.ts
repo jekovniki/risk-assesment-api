@@ -1,17 +1,23 @@
 import { DATABASE } from "../utils/configuration";
-const admin = require("firebase-admin");
+import admin from 'firebase-admin';
+import { initializeApp } from 'firebase-admin/app'
+import { logger } from "../utils/logger";
 
 class Database {
-    private serviceAccount;
-    constructor(privateKey: string) {
-        this.serviceAccount = privateKey;
+    private hasConnected = false;
+
+    constructor() {
     }
 
-    public connect(): void {
-        admin.initializeApp({
-            credential: admin.credential.cert(this.serviceAccount)
-          });
+    connect() {
+        if (this.hasConnected === true) {
+            return;
+        }
+        initializeApp({ credential: admin.credential.cert(JSON.parse(DATABASE.PRIVATE_KEY)) });
+        logger.info('App has been initialised');
+        this.hasConnected = true;
     }
+
 }
 
-export const database = new Database(DATABASE.PRIVATE_KEY);
+export const database = new Database();;

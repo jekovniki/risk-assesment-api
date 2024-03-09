@@ -29,3 +29,15 @@ export class PaginationParamsError extends BaseError {
         super(ERRORS.BAD_REQUEST.CODE, message);
     }
 }
+
+export class AccessForbiddenError extends BaseError {
+    constructor(message: string = ERRORS.FORBIDDEN.MESSAGE) {
+        super(ERRORS.FORBIDDEN.CODE, message);
+    }
+}
+
+export class UnauthorizedError extends BaseError {
+    constructor(message: string = ERRORS.UNAUTHORIZED.MESSAGE) {
+        super(ERRORS.UNAUTHORIZED.CODE, message);
+    }
+}

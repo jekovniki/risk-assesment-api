@@ -1,37 +1,38 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import ObjectDocumentModel from "../helpers/odm";
+import { database } from "../libraries/database";
 
-export interface IUserModel extends Document {
-    googleId: string;
+database.connect();
+
+export interface IUserModel extends FirebaseFirestore.DocumentData {
+    id: string;
+    googleId: string | null;
     email: string;
-    password: string;
-    role: string;
+    password: string | null;
+    role: 'USER' | 'ADMIN';
     gender: "MALE" | "FEMALE" | "OTHER";
     createdAt: Date;
     updatedAt: Date;
     dateOfBirth: Date;
-    lastLogin: Date;
-    userDevice: string;
+    lastLogin: Date | null;
+    userDevice: string | null;
     firstName: string;
     lastName: string;
     companyId: string;
 }
 
-const userSchema: Schema = new Schema({
-    googleId: { type: String, unique: true, sparse: true, default: null },
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-    gender: { type: String, enum: ['MALE', 'FEMALE', 'OTHER'], default: 'MALE' },
-    role: { type: String, enum: ['USER', 'COMPANY_LEADER', 'ADMIN'], default: 'USER' },
-    createdAt: { type: Date, default: Date.now },
-    updatedAt: { type: Date, default: Date.now },
-    dateOfBirth: {type: Date, default: Date.now },
-    lastLogin: { type: Date, default: null },
-    userDevice: { type: String, default: null },
-    firstName: { type: String, default: null },
-    lastName: { type: String, default: null },
-    companyId: { type: String, default: null },
-});
+const defaultGender: 'MALE' = 'MALE';
+const defaultUser: 'USER' = 'USER';
 
-userSchema.index({ email: 1 }, { unique: true });
+const defaultProps = {
+    googleId: null,
+    role: defaultUser,
+    gender: defaultGender,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    dateOfBirth: new Date(),
+    lastLogin: null,
+    userDevice: null,
+    companyId: "1"
+}
 
-export default mongoose.model<IUserModel>('User', userSchema);
+export const UserModel = new ObjectDocumentModel<IUserModel>('users', defaultProps);

@@ -3,7 +3,7 @@ import * as SearchOptions from "../services/search-options";
 import { SUCCESS } from "../utils/constants/http-status";
 
 
-export async function getGenders(request: Request, response: Response, next: NextFunction) {
+export async function getGenders(_request: Request, response: Response, next: NextFunction) {
     try {
         const result = await SearchOptions.getGenders();
 
@@ -13,7 +13,7 @@ export async function getGenders(request: Request, response: Response, next: Nex
     }
 }
 
-export async function getEntities(request: Request, response: Response, next: NextFunction) {
+export async function getEntities(_request: Request, response: Response, next: NextFunction) {
     try {
         const result = await SearchOptions.getEntityType();
 

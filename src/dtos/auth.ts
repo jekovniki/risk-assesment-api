@@ -12,9 +12,7 @@ export const signInCredentials = z.object({
 
 const signUpFields = z.object({
     repeatPassword: z.string().min(8),
-    gender: z.string().refine(value => value === 'MALE' || value === 'FEMALE' || value === 'OTHER', {
-        message: 'Gender must be MALE, FEMALE, or OTHER',
-      }),
+    gender: z.enum(['MALE', 'FEMALE', 'OTHER']),
     dateOfBirth: z.string(),
     firstName: z.string().min(1),
     lastName: z.string().min(1)

@@ -1,5 +1,5 @@
 import { config } from "dotenv";
-import { validateEnvironmentVariable } from "./helpers/validators";
+import { validateEnvironmentVariable } from "../helpers/validators";
 
 config();
 
@@ -37,11 +37,4 @@ export const ACCESS_TOKEN = {
     ALGORITHM: validateEnvironmentVariable(process.env.ACCESS_TOKEN_ALGORITHM),
     LIFE: validateEnvironmentVariable(process.env.ACCESS_TOKEN_LIFE),
     LIFE_IN_MILLISECONDS: Number(validateEnvironmentVariable(process.env.ACCESS_TOKEN_IN_MILLISECONDS))
-}
-
-export const ACCESS_LEVEL = {
-    UNAUTHORIZED: 1,
-    USER: 2,
-    COMPANY_LEADER: 5,
-    ADMIN: 10
 }

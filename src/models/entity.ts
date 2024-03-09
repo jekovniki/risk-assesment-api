@@ -1,4 +1,6 @@
-import mongoose, { Schema } from 'mongoose';
+import { database } from "../libraries/database";
+
+database.connect();
 
 export interface IEntityModel {
     id: string;
@@ -23,30 +25,30 @@ export interface IEntityModel {
     target: boolean
 }
 
-const entitySchema: Schema = new Schema({
-    id: { type: String, required: true },
-    caption: { type: String, required: true },
-    schema: { type: String, required: true },
-    properties: {
-        endDate: { type: Array<String> },
-        holder: { type: Array<String> },
-        startDate: { type: Array<String> },
-        status: { type: Array<String> },
-        post: { type: Array<String> },
-        relative: { type: Array<String> },
-        relationship: { type: Array<String> },
-        person: { type: Array<String> },
-        gender: { type: Array<String> },
-    },
-    referents: { type: Array<String>},
-    datasets: { type: Array<String> },
-    first_seen: { type: String },
-    last_seen: { type: String },
-    last_change: { type: String },
-    target: { type: Boolean}
-});
+// const entitySchema: Schema = new Schema({
+//     id: { type: String, required: true },
+//     caption: { type: String, required: true },
+//     schema: { type: String, required: true },
+//     properties: {
+//         endDate: { type: Array<String> },
+//         holder: { type: Array<String> },
+//         startDate: { type: Array<String> },
+//         status: { type: Array<String> },
+//         post: { type: Array<String> },
+//         relative: { type: Array<String> },
+//         relationship: { type: Array<String> },
+//         person: { type: Array<String> },
+//         gender: { type: Array<String> },
+//     },
+//     referents: { type: Array<String>},
+//     datasets: { type: Array<String> },
+//     first_seen: { type: String },
+//     last_seen: { type: String },
+//     last_change: { type: String },
+//     target: { type: Boolean}
+// });
 
-entitySchema.index({ id: 1 }, { unique: true });
+// entitySchema.index({ id: 1 }, { unique: true });
 
 
-export default mongoose.model<IEntityModel>('Entity', entitySchema);
+// export default mongoose.model<IEntityModel>('Entity', entitySchema);
