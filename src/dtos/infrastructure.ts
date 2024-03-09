@@ -1,5 +1,4 @@
 import { Express, RequestHandler} from 'express';
-import Redis, { RedisKey } from 'ioredis';
 
 export interface IBaseConfiguration {
     port: number;
@@ -8,12 +7,6 @@ export interface IBaseConfiguration {
 
 export interface IServerConfiguration extends IBaseConfiguration {
     server: Express;
-}
-
-export interface IDatabaseConfiguration extends IBaseConfiguration {
-    user: string;
-    password: string;
-    database: string;
 }
 
 export interface IUploadConfiguration {
@@ -25,13 +18,6 @@ export interface IRestServer {
     start(): void;
     getServer(): Express;
     getPort(): number;
-}
-
-export interface ICacheService {
-    getClient(): Redis;
-    get(key: RedisKey): Promise<string | null>;
-    set(key: RedisKey, value: string | number | Buffer): Promise<string | undefined>;
-    remove(keys: RedisKey[]): Promise<number>;
 }
 
 export interface IInternalFileSystem {

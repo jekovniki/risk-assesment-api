@@ -33,13 +33,7 @@ jobs:
                 echo REST_ORIGIN=${{ secrets.REST_ORIGIN }} >> .env
                 echo APP_HOST=${{ secrets.APP_HOST }} >> .env
                 echo APP_PORT=${{ secrets.APP_PORT }} >> .env
-                echo DATABASE_HOST=${{ secrets.DATABASE_HOST }} >> .env
-                echo DATABASE_NAME=${{ secrets.DATABASE_NAME }} >> .env
-                echo DATABASE_PORT=${{ secrets.DATABASE_PORT }} >> .env
-                echo DATABASE_USER=${{ secrets.DATABASE_USER }} >> .env
-                echo DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }} >> .env
-                echo CACHE_HOST=${{ secrets.CACHE_HOST }} >> .env
-                echo CACHE_PORT=${{ secrets.CACHE_PORT }} >> .env
+                echo DATABASE_PRIVATE_KEY=${{ secrets.DATABASE_PRIVATE_KEY }} >> .env
                 echo ENVIRONMENT=${{ secrets.ENVIRONMENT }} >> .env
                 echo LOG_MANAGEMENT_TOKEN=${{ secrets.LOG_MANAGEMENT_TOKEN }} >> .env
                 echo LOG_MANAGEMENT_SUBDOMAIN=${{ secrets.LOG_MANAGEMENT_SUBDOMAIN }} >> .env

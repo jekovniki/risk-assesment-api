@@ -16,20 +16,11 @@ export const SERVER = {
 }
 
 export const DATABASE = {
-    HOST: validateEnvironmentVariable(process.env.DATABASE_HOST),
-    PORT: validateEnvironmentVariable(process.env.DATABASE_PORT),
-    USER: validateEnvironmentVariable(process.env.DATABASE_USER),
-    PASSWORD: validateEnvironmentVariable(process.env.DATABASE_PASSWORD),
-    NAME: validateEnvironmentVariable(process.env.DATABASE_NAME)
+    PRIVATE_KEY: validateEnvironmentVariable(process.env.DATABASE_PRIVATE_KEY),
 }
 
 export const APP_CLIENT = {
     URL: validateEnvironmentVariable(process.env.APP_HOST) + ":" + validateEnvironmentVariable(process.env.APP_PORT) + "/"
-}
-
-export const CACHE = {
-    HOST: validateEnvironmentVariable(process.env.CACHE_HOST),
-    PORT: Number(validateEnvironmentVariable(process.env.CACHE_PORT))
 }
 
 export const ENVIRONMENT = validateEnvironmentVariable(process.env.ENVIRONMENT);
@@ -47,13 +38,6 @@ export const ACCESS_TOKEN = {
     LIFE: validateEnvironmentVariable(process.env.ACCESS_TOKEN_LIFE),
     LIFE_IN_MILLISECONDS: Number(validateEnvironmentVariable(process.env.ACCESS_TOKEN_IN_MILLISECONDS))
 }
-console.log('access token:', ACCESS_TOKEN);
-console.log('LOG MANAGEMENT:', LOG_MANAGEMENT);
-console.log('ENVIRONMENT:', ENVIRONMENT);
-console.log('CACHE:', CACHE);
-console.log('APP_CLIENT:', APP_CLIENT);
-console.log('DATABASE:', DATABASE);
-console.log('SERVER:', SERVER);
 
 export const ACCESS_LEVEL = {
     UNAUTHORIZED: 1,

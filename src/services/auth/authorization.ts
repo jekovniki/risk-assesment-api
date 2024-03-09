@@ -1,8 +1,6 @@
 import { handleErrors } from "../../utils/errors";
 import IdentityToken from "./token";
 import { ERRORS, SERVER } from "../../utils/constants/http-status";
-// import { cache } from "../../libraries/cache";
-import { CACHE_SESSION_PREPOSITION } from "../../utils/constants/cache-keys";
 import SessionModel from "../../models/session";
 import { IUserAuthorizationData } from "../../dtos/auth";
 import { IErrorResponse } from "../../dtos/base";
@@ -19,7 +17,6 @@ export async function getUserSession(data: IUserAuthorizationData): Promise<{tok
         const isValidSession = sessionDate.getTime() > Date.now();
         if (isValidSession === false) {
             await SessionModel.deleteOne({ id: session.id });
-            // await cache.remove([`${CACHE_SESSION_PREPOSITION}-${session.id}`]);
 
             return generateUserSession(data);
         }
@@ -85,7 +82,6 @@ export async function validateUserSession(tokenData: Record<string, any>, method
 
     if (isValidSession === false) {
         await SessionModel.deleteOne({ id: sessionData.id });
-        // await cache.remove([`${CACHE_SESSION_PREPOSITION}-${sessionData.id}`]);
 
         throw ERRORS.UNAUTHORIZED.MESSAGE
     }
@@ -103,15 +99,10 @@ export async function validateUserSession(tokenData: Record<string, any>, method
 }
 
 export async function getSessionData(sessionId: string): Promise<any> {
-    // const sessionFromCache = await cache.get(`${CACHE_SESSION_PREPOSITION}-${sessionId}`);
-    // if (sessionFromCache !== null) {
-    //     return JSON.parse(sessionFromCache)
-    // }
     const sessionData = await SessionModel.findById(sessionId);
     if (sessionData === null) {
         return sessionData;
     }
-    // await cache.set(`${CACHE_SESSION_PREPOSITION}-${sessionData.id}`, JSON.stringify(sessionData));
 
     return sessionData;
 
@@ -127,7 +118,7 @@ export async function removeSession(token: string): Promise<any> {
                 message: "Invalid token"
             };
         }
-        // await cache.remove([`${CACHE_SESSION_PREPOSITION}-${tokenData.jti}`]);
+
         await SessionModel.deleteOne({ id: tokenData.jti });
 
         return {
