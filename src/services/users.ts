@@ -1,6 +1,7 @@
 import { USER_NOT_EXISTS } from "../utils/constants/errors";
 import { IUserModel } from "../models/user";
 import { UserModel } from "../models/user";
+import { UserSearchModel } from "../models/user-search";
 
 export async function getUserInformation(userId: string): Promise<IUserModel> {
     const user = await UserModel.findById(userId);
@@ -12,15 +13,15 @@ export async function getUserInformation(userId: string): Promise<IUserModel> {
 
 
 export async function addUserSearch(input : { search: string, userId: string, ongoingScreening: boolean}): Promise<any> {
-    // const result = await UserSearchModel.create({
-    //     user_id: input.userId,
-    //     search: input.search,
-    //     ongoingScreening: input.ongoingScreening
-    // });
+    const result = await UserSearchModel.create({
+        user_id: input.userId,
+        search: input.search,
+        ongoingScreening: input.ongoingScreening
+    } as any);
 
-    // return result._id; // This is case_id
+    return result.id;
 }
 
 export async function getUserSearchHistory(userId: string) {
-    // return await UserSearchModel.find({ user_id: userId });
+    return await UserSearchModel.find('userId', userId);
 }

@@ -18,14 +18,14 @@ class ObjectDocumentModel<T extends { id: string }> {
         return documentRef;
     }
 
-    public async find(query: FirebaseFirestore.Query<FirebaseFirestore.DocumentData>): Promise<T[]> {
-        const snapshot = await query.get();
+    public async find(field: keyof T, value: any): Promise<T[]> {
+        const querySnapshot = await this.collection.where(field as string, '==', value).get();
         const documents: T[] = [];
-        snapshot.forEach((doc) => {
-            documents.push({ id: doc.id, ...doc.data() } as T);
+        querySnapshot.forEach((doc) => {
+          documents.push({ id: doc.id, ...doc.data() } as T);
         });
         return documents;
-    }
+      }
 
     public async findOne(field: keyof T, value: any): Promise<T | null> {
         const querySnapshot = await this.collection.where(field as string, '==', value).limit(1).get();

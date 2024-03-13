@@ -1,8 +1,10 @@
+import ObjectDocumentModel from "../helpers/odm";
 import { database } from "../libraries/database";
 
 database.connect();
 
-export interface IUserSearchModel extends Document {
+export interface IUserSearchModel extends FirebaseFirestore.DocumentData {
+    id: string;
     user_id: string;
     search: string;
     ongoingScreening: boolean;
@@ -10,12 +12,9 @@ export interface IUserSearchModel extends Document {
     updatedAt: Date;
 }
 
-// const userSearchSchema: Schema = new Schema({
-//     user_id: { type: String },
-//     search: { type: String},
-//     ongoingScreening: { type: Boolean },
-//     createdAt: { type: Date, default: Date.now },
-//     updatedAt: { type: Date, default: Date.now },
-// });
+const defaultProps = {
+    createdAt: new Date(),
+    updatedAt: new Date(),
+}
 
-// export default mongoose.model<IUserSearchModel>('UserSearch', userSearchSchema);
+export const UserSearchModel = new ObjectDocumentModel<IUserSearchModel>('search-history', defaultProps);

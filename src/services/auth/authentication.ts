@@ -1,7 +1,5 @@
-import { handleErrors } from "../../utils/errors";
 import { comparePassword, encryptPassword } from "./general";
-import { IUserDataResponse } from "../../dtos/user";
-import { IBaseResponse, IErrorResponse } from "../../dtos/base";
+import { IBaseResponse } from "../../dtos/base";
 import { IGoogleData, TSignIn, TSignUpInput } from "../../dtos/auth";
 import { logger } from "../../utils/logger";
 import { SUCCESSFULL_REGISTRATION } from "../../utils/constants/success";
