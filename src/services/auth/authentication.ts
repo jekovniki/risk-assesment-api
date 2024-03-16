@@ -56,6 +56,7 @@ export async function signUpWithCredentials(credentials: TSignUpInput): Promise<
         dateOfBirth: new Date(credentials.dateOfBirth),
         firstName: credentials.firstName,
         lastName: credentials.lastName,
+        plan: credentials.plan
     } as any)
 
     logger.info('User successfully register. Email: ' + credentials.email);

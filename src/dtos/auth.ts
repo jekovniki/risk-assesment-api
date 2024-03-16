@@ -15,7 +15,8 @@ const signUpFields = z.object({
     gender: z.enum(['MALE', 'FEMALE', 'OTHER']),
     dateOfBirth: z.string(),
     firstName: z.string().min(1),
-    lastName: z.string().min(1)
+    lastName: z.string().min(1),
+    plan: z.enum(['Free', 'Standard', 'Pro']) // Custom not available from FE
 });
 
 export const signUpData = z.object({

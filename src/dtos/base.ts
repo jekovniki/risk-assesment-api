@@ -14,3 +14,5 @@ export interface IBaseId {
 export interface IUserId {
     userId: string
 }
+
+export type TPlans = 'Free' | 'Standard' | 'Pro' | 'Custom';

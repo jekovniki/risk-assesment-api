@@ -1,3 +1,4 @@
+import { TPlans } from "../dtos/base";
 import ObjectDocumentModel from "../helpers/odm";
 import { database } from "../libraries/database";
 
@@ -18,6 +19,7 @@ export interface IUserModel extends FirebaseFirestore.DocumentData {
     firstName: string;
     lastName: string;
     companyId: string;
+    plan: TPlans
 }
 
 const defaultGender: 'MALE' = 'MALE';

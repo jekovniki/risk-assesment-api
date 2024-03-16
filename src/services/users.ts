@@ -1,14 +1,19 @@
 import { USER_NOT_EXISTS } from "../utils/constants/errors";
-import { IUserModel } from "../models/user";
 import { UserModel } from "../models/user";
 import { UserSearchModel } from "../models/user-search";
+import { getPlanDataByName } from "./plan";
+import { IUserInformation } from "../dtos/users";
 
-export async function getUserInformation(userId: string): Promise<IUserModel> {
+export async function getUserInformation(userId: string): Promise<IUserInformation> {
     const user = await UserModel.findById(userId);
     if (user === null) {
         throw new Error(USER_NOT_EXISTS);
     }
-    return user;
+    const planData = getPlanDataByName(user.plan);
+    return {
+        ...user,
+        ...planData
+    };
 }
 
 
