@@ -1,11 +1,8 @@
 import { NextFunction, Request, Response } from "express";
-// import { findPEP } from "../services/search";
-import { SUCCESS } from "../utils/constants/http-status";
-import { addUserSearch } from "../services/users";
 
-export async function findPoliticalyExposedPerson(request: Request, response: Response, next: NextFunction) {
+export async function search(request: Request, response: Response, next: NextFunction) {
     try {
-        const userId = request.body.sessionData.userId;
+        const userId = request.userSession.userId;
         // const data = await findPEP(request.body);
 
         // const caseId = await addUserSearch({

@@ -20,11 +20,8 @@ export const accessControlMiddleware = () => {
                 throw new UnauthorizedError();
             }
 
-            request.body = {
-                ...request.body,
-                sessionData: {
-                    userId: tokenData.sub
-                }
+            request.userSession = {
+                userId: tokenData.sub
             };
 
             next();

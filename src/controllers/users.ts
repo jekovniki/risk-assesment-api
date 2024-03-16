@@ -4,7 +4,7 @@ import { SUCCESS } from "../utils/constants/http-status";
 
 export async function getUser(request: Request, response: Response, next: NextFunction): Promise<void> {
     try {
-        const result = await getUserInformation(request.body.sessionData.userId);
+        const result = await getUserInformation(request.userSession.userId);
 
         response.status(SUCCESS.OK.CODE).send(result);
     } catch (error) {
@@ -14,7 +14,7 @@ export async function getUser(request: Request, response: Response, next: NextFu
 
 export async function getLatestSearches(request: Request, response: Response, next: NextFunction): Promise<void> {
     try {
-        const result = await getUserSearchHistory(request.body.sessionData.userId);
+        const result = await getUserSearchHistory(request.userSession.userId);
 
         response.status(SUCCESS.OK.CODE).send(result);
 
