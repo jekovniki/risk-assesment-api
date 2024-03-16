@@ -24,6 +24,7 @@ class ObjectDocumentModel<T extends { id: string }> {
         querySnapshot.forEach((doc) => {
           documents.push({ id: doc.id, ...doc.data() } as T);
         });
+  
         return documents;
       }
 
@@ -49,6 +50,15 @@ class ObjectDocumentModel<T extends { id: string }> {
         const docRef = this.collection.doc(id);
         await docRef.update(data);
     }
+
+    public async findWithCustomQuery(query: FirebaseFirestore.Query<FirebaseFirestore.DocumentData>): Promise<T[]> {
+      const querySnapshot = await query.get();
+      const documents: T[] = [];
+      querySnapshot.forEach((doc) => {
+          documents.push({ id: doc.id, ...doc.data() } as T);
+      });
+      return documents;
+  }
 }
 
 export default ObjectDocumentModel;

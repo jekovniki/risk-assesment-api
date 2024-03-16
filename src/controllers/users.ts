@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { getUserInformation, getUserSearchHistory } from "../services/users";
 import { SUCCESS } from "../utils/constants/http-status";
 
-export async function getUser(request: Request, response: Response, next: NextFunction): Promise<void> {
+export async function getUser(request: any, response: Response, next: NextFunction): Promise<void> {
     try {
         const result = await getUserInformation(request.userSession.userId);
 
@@ -12,7 +12,7 @@ export async function getUser(request: Request, response: Response, next: NextFu
     }
 }
 
-export async function getLatestSearches(request: Request, response: Response, next: NextFunction): Promise<void> {
+export async function getLatestSearches(request: any, response: Response, next: NextFunction): Promise<void> {
     try {
         const result = await getUserSearchHistory(request.userSession.userId);
 

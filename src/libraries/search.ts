@@ -1,4 +1,5 @@
 import algoliasearch, { SearchClient, SearchIndex } from "algoliasearch";
+import { logger } from "../utils/logger";
 
 const indexedSearches = {
     OS_People: 'prod_OS-People'
@@ -14,6 +15,7 @@ class Search {
             throw new Error('Could not initialise search - api key is missing');
         }
         this.client = algoliasearch(appId, apiKey);
+        logger.info('Successfully connected to Algolia search');
     }
 
     public initialise(indexName: string): SearchIndex {

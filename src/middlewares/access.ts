@@ -10,7 +10,7 @@ import { UnauthorizedError } from '../utils/errors/index';
  */
 
 export const accessControlMiddleware = () => {
-    return async (request: Request, response: Response, next: NextFunction) => {
+    return async (request: any, response: Response, next: NextFunction) => {
         try {
             const token = getToken(request);
             const tokenData = IdentityToken.validate(token);
